@@ -9,7 +9,6 @@ function App() {
   const canvasRef = useRef(null);
   const [strokeColor, setStrokeColor] = useState('black');
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  const [backgroundImage] = useState('/bg-grid.png');
   const [preserveAspectRatio] = useState('none');
   const [customStrokeColor, setCustomStrokeColor] = useState('white');
 
@@ -33,7 +32,15 @@ function App() {
   };
 
   return (
-    <div style={{ height: '100dvh', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: 'rgb(255 230 199)' }}>
+    <div style={{
+      height: '100dvh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      backgroundColor: 'rgb(255 230 199)',
+      backgroundImage: 'url(/notitas/bg-grid.png)',
+      backgroundSize: 'cover'
+    }}>
       <h1 style={{ textAlign: 'center', marginBottom: '10px', backgroundColor: 'rgb(236, 187, 127)', borderRadius: '15px', padding: '10px 20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         Notitas <FavoriteIcon style={{ color: 'red', marginLeft: '10px' }} />
       </h1>
@@ -66,10 +73,10 @@ function App() {
       <ReactSketchCanvas
         ref={canvasRef}
         width="100%"
-        height="75%"
+        height="70%"
         strokeWidth={4}
         strokeColor={strokeColor}
-        backgroundImage={backgroundImage}
+        style={{ backgroundColor: 'white', border: '2px solid brown' }}
         preserveBackgroundImageAspectRatio={preserveAspectRatio}
       />
       <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '10px' }}>

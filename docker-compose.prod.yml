@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+    notitas-prod:
+        build:
+            context: .
+            dockerfile: Dockerfile.prod
+        ports:
+            - "80:80"

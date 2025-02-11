@@ -16,9 +16,21 @@ function App() {
     canvasRef.current.clearCanvas();
   };
 
+  const undoLastStroke = () => {
+    canvasRef.current.undo();
+  };
+
   const handleColorChange = (color) => {
     setStrokeColor(color.hex);
     setCustomStrokeColor(color.hex);
+  };
+
+  const saveAndDownloadImage = async () => {
+    const dataUrl = await canvasRef.current.exportImage('png');
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = 'drawing.png';
+    link.click();
   };
 
   const buttonStyle = {
@@ -79,14 +91,32 @@ function App() {
         style={{ backgroundColor: 'white', border: '2px solid brown' }}
         preserveBackgroundImageAspectRatio={preserveAspectRatio}
       />
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '10px' }}>
-        <Button
-          variant="contained"
-          onClick={clearCanvas}
-          style={{ backgroundColor: 'lightgray', color: 'darkgoldenrod', borderRadius: '50px', border: '1px solid black' }}
-        >
-          Clear Canvas
-        </Button>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '10px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+          <Button
+            variant="contained"
+            onClick={undoLastStroke}
+            style={{ backgroundColor: 'lightgray', color: 'darkgoldenrod', borderRadius: '50px', border: '1px solid black' }}
+          >
+            Undo
+          </Button>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+          <Button
+            variant="contained"
+            onClick={clearCanvas}
+            style={{ backgroundColor: 'lightgray', color: 'darkgoldenrod', borderRadius: '50px', border: '1px solid black' }}
+          >
+            Clear Canvas
+          </Button>
+          <Button
+            variant="contained"
+            onClick={saveAndDownloadImage}
+            style={{ backgroundColor: 'lightgray', color: 'darkgoldenrod', borderRadius: '50px', border: '1px solid black' }}
+          >
+            Save & Download
+          </Button>
+        </div>
       </div>
     </div>
   );
